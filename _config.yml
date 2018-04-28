@@ -4,7 +4,7 @@ SEOTitle: 前端大世界
 header-img: img/home-bg.jpg
 email: cycle263@gmail.com
 description: "洗尽铅华始见金，褪却浮华归本真"
-keyword: "前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http"
+keyword: "前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web"
 url: "https://cycle263.github.io"              # your host, for absolute URL
 baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -12,12 +12,12 @@ baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 
 # SNS settings
 RSS: false
-wechat_username:  cycle263
+#wechat_username:  cycle263
 weibo_username:     cycle263
 zhihu_username:     cycle263
 github_username:    cycle263
 #twitter_username:  cycle263
-facebook_username:  cycle263
+#facebook_username:  cycle263
 
 
 
@@ -53,7 +53,7 @@ kramdown:
 # Duoshuo settings
 duoshuo_username: cycle263
 # Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: false                     # set to false if you want to use Comment without Sharing
+duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
 
 
@@ -83,7 +83,7 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
-        title: "NoFriend",
-        href: "#"
+        title: "前端外刊评论",
+        href: "http://qianduan.guru/"
     }
 ]
