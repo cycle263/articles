@@ -128,7 +128,7 @@
     &lt;p&gt;&lt;strong&gt;encodeURI&lt;/strong&gt;&lt;/p&gt;
 
     &lt;p&gt;encodeURI方法主要针对URL地址， encodeURI方法不会对下列字符编码： ASCII字母、数字、~!@#$&amp;amp;*()=:/,;?+’，
-&lt;img src=&quot;../images/encodeURI.jpg&quot; alt=&quot;保留字符&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/img/encodeURI.jpg&quot; alt=&quot;保留字符&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;encodeURIComponent&lt;/strong&gt;&lt;/p&gt;
