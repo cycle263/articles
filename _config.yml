@@ -70,7 +70,7 @@ ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "大道至简"
-sidebar-avatar: /img/contact-bg.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /articles/img/contact-bg.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
