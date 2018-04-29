@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<!-- Page Header -->
+<!-- Page Header to -->
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
     <div class="container">
         <div class="row">
@@ -38,7 +38,7 @@ layout: default
                     <!-- no hr -->
                     <h5><a href="{{'/tags/' | prepend: site.baseurl }}">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        {% for tag in page.tags %}
+                        {% for tag in site.tags %}
                         <a class="tag" href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
                         {% endfor %}
         			</div>
