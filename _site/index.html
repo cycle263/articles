@@ -8,20 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="洗尽铅华始见金，褪却浮华归本真">
     <meta name="keyword"  content="前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web">
-    <link rel="shortcut icon" href="/articles/img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>前端大世界</title>
 
-    <link rel="canonical" href="http://localhost:4000/articles/">
+    <link rel="canonical" href="http://localhost:4000/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/articles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/articles/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/articles/css/syntax.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -62,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/articles/">前端大世界</a>
+            <a class="navbar-brand" href="/">前端大世界</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,15 +75,15 @@
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/articles/">Home</a>
+                        <a href="/">Home</a>
                     </li>
                     
                     <li>
-                        <a href="/articles/about/">About</a>
+                        <a href="/about/">About</a>
                     </li>
                     
                     <li>
-                        <a href="/articles/tags/">Tags</a>
+                        <a href="/tags/">Tags</a>
                     </li>
                     
                 </ul>
@@ -124,7 +124,7 @@
 
 
     <!-- Page Header to -->
-<header class="intro-header" style="background-image: url('/articles/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -154,7 +154,7 @@
             ">
     			
 <div class="post-preview">
-    <a href="/articles/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/">
+    <a href="/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/">
         <h2 class="post-title">
             Ascii、Unicode深入比较
         </h2>
@@ -183,6 +183,32 @@
 </div>
 <hr>
 
+<div class="post-preview">
+    <a href="/2018/04/12/websocket%E5%85%A5%E9%97%A8/">
+        <h2 class="post-title">
+            websocket简单入门
+        </h2>
+        
+        <h3 class="post-subtitle">
+            
+        </h3>
+        
+        <div class="post-content-preview">
+            websocket
+
+
+  Websocket借用了HTTP的协议来完成一部分握手，是一个持久化的协议，是相对于HTTP这种非持久(长连接，循环连接不算)的协议来说，更像是HTTP协议上的一种补充。Web Socket是一种HTML 5为Web定制的全双工通讯协议，没有“请求 - 响应”的概念，浏览器与服务器完全平等，连接一旦建立就一直开放，双方可随时向对方发送任意数据，没有推拉之分。
+
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Cycle263 on April 12, 2018
+    </p>
+</div>
+<hr>
+
 
 <!-- Pager -->
 
@@ -200,14 +226,16 @@
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/articles/tags/">FEATURED TAGS</a></h5>
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                         
-                        <a href="#前端开发" title="前端开发" rel="1">前端开发</a>
+                        <a href="/tags/#http" title="http" rel="1">http</a>
                         
-                        <a href="#JavaScript" title="JavaScript" rel="1">JavaScript</a>
+                        <a href="/tags/#websocket" title="websocket" rel="1">websocket</a>
                         
-                        <a href="#编码" title="编码" rel="1">编码</a>
+                        <a href="/tags/#前端开发" title="前端开发" rel="1">前端开发</a>
+                        
+                        <a href="/tags/#编码" title="编码" rel="1">编码</a>
                         
                     </div>
                 </section>
@@ -215,10 +243,10 @@
 
                 <!-- Short About -->
                 <section class="visible-md visible-lg">
-                    <hr><h5><a href="/articles/about/">ABOUT ME</a></h5>
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
                     <div class="short-about">
                         
-                            <img src="/articles/img/contact-bg.jpg" />
+                            <img src="/img/contact-bg.jpg" />
                         
                         
                             <p>大道至简</p>
@@ -337,13 +365,13 @@
 </footer>
 
 <!-- jQuery -->
-<script src="/articles/js/jquery.min.js "></script>
+<script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/articles/js/bootstrap.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/articles/js/hux-blog.min.js "></script>
+<script src="/js/hux-blog.min.js "></script>
 
 
 <!-- async load function -->
@@ -381,7 +409,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("/articles/js/jquery.tagcloud.js",function(){
+        async("/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},

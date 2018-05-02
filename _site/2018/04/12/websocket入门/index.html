@@ -10,9 +10,9 @@
     <meta name="keyword"  content="前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Ascii、Unicode深入比较 - 前端大世界</title>
+    <title>websocket简单入门 - 前端大世界</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/">
+    <link rel="canonical" href="http://localhost:4000/2018/04/12/websocket%E5%85%A5%E9%97%A8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -136,17 +136,17 @@
                 <div class="post-heading">
                     <div class="tags" style="margin-bottom: 0;">
                         
-                        <a class="tag" href="/tags/#前端开发" title="前端开发">前端开发</a>
+                        <a class="tag" href="/tags/#http" title="http">http</a>
                         
-                        <a class="tag" href="/tags/#编码" title="编码">编码</a>
+                        <a class="tag" href="/tags/#websocket" title="websocket">websocket</a>
                         
                     </div>
-                    <h1>Ascii、Unicode深入比较</h1>
+                    <h1>websocket简单入门</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Cycle263 on April 28, 2018</span>
+                    <span class="meta">Posted by Cycle263 on April 12, 2018</span>
                 </div>
             </div>
         </div>
@@ -164,177 +164,129 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="unicode-vs-gbk-vs-utf-8">Unicode vs GBK vs Utf-8</h2>
+				<h2 id="websocket">websocket</h2>
 
 <blockquote>
-  <p>unicode，gbk和大五码就是编码的值(二进制符号)，并且三者不兼容，而utf-8,uft-16之类就是这个值(符号)的表现形式，如汉字和英文字母。uft-8转换成GBK，必须先转成成Unicode，再转GBK。</p>
+  <p>Websocket借用了HTTP的协议来完成一部分握手，是一个持久化的协议，是相对于HTTP这种非持久(长连接，循环连接不算)的协议来说，更像是HTTP协议上的一种补充。Web Socket是一种HTML 5为Web定制的全双工通讯协议，没有“请求 - 响应”的概念，浏览器与服务器完全平等，连接一旦建立就一直开放，双方可随时向对方发送任意数据，没有推拉之分。</p>
 </blockquote>
 
-<ul>
-  <li>
-    <p><strong>ASCII</strong></p>
+<p>WebSocket在2011年被IETF定为标准RFC 6455，并被RFC 7936补充规范，WebSocket API被W3C定为标准。</p>
 
-    <p>八个二进制位就可以组合出256种状态，这被称为一个字节（byte）, 也就是一个字节都可以表示256个字符。上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码，一直沿用至今。</p>
+<p>ws最大的优势：在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息，数据的传输使用帧来传递，并且允许跨域通信。</p>
 
-    <p>ASCII 码一共规定了128个字符的编码，比如空格SPACE是32（二进制00100000），大写的字母A是65（二进制01000001）。这128个符号（包括32个不能打印出来的控制符号），只占用了一个字节的后面7位，最前面的一位统一规定为0。一个字节只能表示256种符号，肯定是不够的，就必须使用多个字节表达一个符号。比如，简体中文常见的编码方式是 GB2312，使用两个字节表示一个汉字，所以理论上最多可以表示 256 x 256 = 65536 个符号。</p>
-  </li>
-  <li>
-    <p><strong>Unicode</strong></p>
-
-    <p>Unicode(Universal Multiple-Octet Coded Character Set)是一种字符编码方法，简称为UCS。UCS可以看作是”Unicode Character Set”的缩写。不过它是由国际组织设计，可以容纳全世界所有语言文字的编码方案。将世界上所有的符号都纳入其中，每一个符号都给予一个独一无二的编码，它是一个很大的集合，现在的规模可以容纳100多万个符号。比如，U+0639表示阿拉伯字母Ain，U+0041表示英语的大写字母A，U+4E25表示汉字严。具体的符号对应表，可以查询<a href="http://www.unicode.org/">unicode.org</a>， 或者专门的<a href="http://www.chi2ko.com/tool/CJK.htm">汉字对应表</a>。</p>
-
-    <p>历史上存在两个试图独立设计Unicode的组织，即国际标准化组织（ISO）和一个软件制造商的协会（unicode.org）。ISO开发了ISO 10646项目，Unicode协会开发了Unicode项目。目前两个项目仍都存在，并独立地公布各自的标准。Unicode协会现在的最新版本是2005年的Unicode 4.1.0。ISO的最新标准是10646-3:2003。</p>
-
-    <p>UCS有两种格式：UCS-2和UCS-4。顾名思义，UCS-2就是用两个字节编码，UCS-4就是用4个字节（实际上只用了31位，最高位必须为0）编码。</p>
-
-    <p>UCS规定了怎么用多个字节表示各种文字。怎样传输这些编码，是由UTF(UCS Transformation Format)规范规定的，常见的UTF规范包括UTF-8、UTF-7、UTF-16。</p>
-
-    <p><a href="http://pcedu.pconline.com.cn/empolder/gj/other/0505/616631_all.html#content_page_2">Unicode扩展阅读</a></p>
-  </li>
-  <li>
-    <p><strong>GB码</strong></p>
-
-    <ul>
-      <li>
-        <p>GB2312</p>
-
-        <p>早期的计算机使用7位的ASCII编码，为了处理汉字，程序员设计了用于简体中文的GB2312和用于繁体中文的big5。GB2312(1980年)一共收录了7445个字符，包括6763个汉字和682个其它符号。</p>
-      </li>
-      <li>
-        <p>GBK1.0</p>
-
-        <p>1995年的汉字扩展规范GBK1.0收录了21886个符号，它分为汉字区和图形符号区。汉字区包括21003个字符。</p>
-      </li>
-      <li>
-        <p>GB18030</p>
-
-        <p>2000年的GB18030是取代GBK1.0的正式国家标准。该标准收录了27484个汉字，同时还收录了藏文、蒙文、维吾尔文等主要的少数民族文字。</p>
-      </li>
-    </ul>
-
-    <p><u>从ASCII、GB2312、GBK到GB18030，这些编码方法是向下兼容的，即同一个字符在这些方案中总是有相同的编码，后面的标准支持更多的字符。而Unicode只与ASCII兼容（更准确地说，是与ISO-8859-1兼容），与GB码不兼容。例如“汉”字的Unicode编码是6C49，而GB码是BABA。</u></p>
-  </li>
-  <li>
-    <p><strong>UTF-8</strong></p>
-
-    <p>UTF-8 就是在互联网上使用最广的一种 Unicode 的实现方式。其他实现方式还包括 UTF-16（字符用两个字节或四个字节表示）和 UTF-32（字符用四个字节表示），不过在互联网上基本不用。</p>
-
-    <p>UTF-8 最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。</p>
-
-    <p>UTF-8 的编码规则很简单，只有二条：</p>
-
-    <ul>
-      <li>
-        <p>1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和 ASCII 码是相同的。</p>
-      </li>
-      <li>
-        <p>2）对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n + 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码。</p>
-      </li>
-    </ul>
-
-    <table>
-      <thead>
-        <tr>
-          <th>UCS-2编码(16进制)</th>
-          <th>UTF-8 字节流(二进制)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>0000 - 007F</td>
-          <td>0xxxxxxx</td>
-        </tr>
-        <tr>
-          <td>0080 - 07FF</td>
-          <td>110xxxxx 10xxxxxx</td>
-        </tr>
-        <tr>
-          <td>0800 - FFFF</td>
-          <td>1110xxxx 10xxxxxx 10xxxxxx</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001， 用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</p>
-  </li>
-</ul>
-
-<p><strong><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">ASCII、Unicode 扩展阅读</a></strong></p>
-
-<p><strong><a href="http://tool.chinaz.com/Tools/Unicode.aspx">ASCII &lt;-转换-&gt; Unicode &lt;-转换-&gt; 中文</a></strong></p>
-
-<p><br /><br /></p>
-
-<h2 id="escape-vs-encodeuriunicode-vs-utf-8">escape vs encodeURI(unicode vs utf-8)</h2>
+<p>目前主流的浏览器都支持WebSocket，并且有第三方的API：Guillermo Rauch创建了一个Socket.IO，遵循Engine.IO协议<a href="https://github.com/socketio/engine.io-protocol">Engine.IO protocol</a>。</p>
 
 <ul>
   <li>
-    <p><strong>escape</strong></p>
+    <p><strong>发送包类型：</strong></p>
 
-    <p>escape方法把字符串生成十六进制转义序列字符（特色字符如: @*_+-./ 被排除在外），当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示。目前该方法以及废弃，推荐使用encodeURI。escape 的编码有一个弊端在于，它后面是4位16进制，故不支持基本多文种平面（BMP）外的字符（unicode大于0xffff）的字符；而encodeURI是基于 UTF-8的，编码本身理论上可以支持0x10ffff内的字符（实际上现在的JavaScript不支持BMP外的字符，所以encodeURI也不支持 ）。</p>
+    <ul>
+      <li>0: open  transport is opened(传输打开)</li>
+      <li>1: close</li>
+      <li>2: ping  Send by client. Server should answer with a pong packet containing the same data</li>
+      <li>3: pong  Sent by the server to respond to ping packets.</li>
+      <li>4: message  actual message, client and server should call their callbacks with the data.(callback - 42, not - 41)</li>
+      <li>5: upgrade  polling or websoket</li>
+      <li>6: noop  等待</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>数据成帧</strong></p>
 
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">escape</span><span class="p">(</span><span class="s2">"äöü"</span><span class="p">);</span>        <span class="c1">// "%E4%F6%FC"</span>
-<span class="nx">escape</span><span class="p">(</span><span class="s2">"ć"</span><span class="p">);</span>          <span class="c1">// "%u0107"</span>
+    <p>WebSocket 使用了自定义的二进制分帧格式，把每个应用消息切分成一或多个帧，发送到目的地之后再组装起来，等到接收到完整的消息后再通知接收端。基本的成帧协议定义了帧类型有操作码、有效载荷的长度，指定位置的Extension data和Application data，统称为Payload data，保留了一些特殊位和操作码供后期扩展。在打开握手完成后，终端发送一个关闭帧之前的任何时间里，数据帧可能由客户端或服务器的任何一方发送。具体的帧格式如下所示：</p>
+
+    <p><img src="/img/websocket.png" alt="websocket" /></p>
+
+    <ul>
+      <li>
+        <p>FIN： 1 bit 。FIN是FINAL的缩写，它为1时表示一个数据传输结束。此位标示此帧是否是消息的最后帧，第一帧也可能是最后帧。</p>
+      </li>
+      <li>
+        <p>RSV1，RSV2，RSV3： 各1 bit 。必须是0，除非协商了扩展定义了非0的意义。</p>
+      </li>
+      <li>
+        <p>opcode：4 bit。表示被传输帧的类型：x0 表示一个后续帧；x1 表示一个文本帧；x2 表示一个二进制帧；x3-7 为以后的非控制帧保留；x8 表示一个连接关闭；x9 表示一个ping；xA 表示一个pong；xB-F 为以后的控制帧保留。同一个数据即使分片传输，它的每个数据帧的Opcode也应该相同。</p>
+      </li>
+      <li>
+        <p>Mask： 1 bit。表示净荷是否有掩码（只适用于客户端发送给服务器的消息）。</p>
+      </li>
+      <li>
+        <p>Payload length： 7 bit, 7 + 16 bit, 7 + 64 bit。 净荷长度由可变长度字段表示： 如果是 0~125，就是净荷长度；如果是 126，则接下来 2 字节表示的 16 位无符号整数才是这一帧的长度； 如果是 127，则接下来 8 字节表示的 64 位无符号整数才是这一帧的长度。</p>
+      </li>
+      <li>
+        <p>Masking-key：0或4 Byte。 用于给净荷加掩护，客户端到服务器标记。</p>
+      </li>
+      <li>
+        <p>Extension data： x Byte。默认为0 Byte，除非协商了扩展。</p>
+      </li>
+      <li>
+        <p>Application data： y Byte。 在”Extension data”之后，占据了帧的剩余部分。</p>
+      </li>
+      <li>
+        <p>Payload data： (x + y) Byte。”extension data” 后接 “application data”。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>生成(封装)数据帧</strong></p>
+
+    <p>待续…</p>
+  </li>
+  <li>
+    <p><strong>解析数据帧</strong></p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">decodeDataFrame</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">frame</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="c1">//解析前两个字节的基本数据</span>
+          <span class="na">FIN</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">7</span><span class="p">,</span>
+          <span class="na">Opcode</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">,</span>
+          <span class="na">Mask</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">7</span><span class="p">,</span>
+          <span class="na">PayloadLength</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&amp;</span><span class="mh">0x7F</span>
+      <span class="p">};</span>
+      <span class="c1">//处理特殊长度126和127</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span> <span class="o">==</span> <span class="mi">126</span><span class="p">)</span>
+          <span class="nx">frame</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">];</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="o">==</span><span class="mi">127</span><span class="p">)</span>
+          <span class="nx">frame</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">24</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">16</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">];</span>
+      <span class="c1">//判断是否使用掩码</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">Mask</span><span class="p">){</span>
+          <span class="c1">//获取掩码实体</span>
+          <span class="nx">frame</span><span class="p">.</span><span class="nx">MaskingKey</span> <span class="o">=</span> <span class="p">[</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]];</span>
+          <span class="c1">//对数据和掩码做异或运算</span>
+          <span class="k">for</span><span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">s</span> <span class="o">=</span> <span class="p">[];</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span>
+              <span class="nx">s</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="nx">j</span><span class="p">]</span><span class="o">^</span><span class="nx">frame</span><span class="p">.</span><span class="nx">MaskingKey</span><span class="p">[</span><span class="nx">j</span><span class="o">%</span><span class="mi">4</span><span class="p">]);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">s</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="p">);</span> <span class="c1">//否则直接使用数据</span>
+      <span class="p">}</span>
+      <span class="c1">//数组转换成缓冲区来使用</span>
+      <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+      <span class="c1">//如果有必要则把缓冲区转换成字符串来使用</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">Opcode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+      <span class="c1">//设置上数据部分</span>
+      <span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadData</span> <span class="o">=</span> <span class="nx">s</span><span class="p">;</span>
+      <span class="c1">//返回数据帧</span>
+      <span class="k">return</span> <span class="nx">frame</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="kd">function</span> <span class="nx">onmessage</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">e</span> <span class="o">=</span> <span class="nx">decodeDataFrame</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="c1">//解析数据帧</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="c1">//把数据帧输出到控制台</span>
+  <span class="p">};</span>  
 </code></pre></div>    </div>
   </li>
   <li>
-    <p><strong>encodeURI</strong></p>
+    <p><strong>example:</strong></p>
 
-    <p>encodeURI方法主要针对URL地址， encodeURI方法不会对下列字符编码： ASCII字母、数字、~!@#$&amp;*()=:/,;?+’，
-<img src="/img/encodeURI.jpg" alt="保留字符" /></p>
-  </li>
-  <li>
-    <p><strong>encodeURIComponent</strong></p>
+    <p>client connects through new transport</p>
 
-    <p>encodeURIComponent方法不会对下列字符编码： ASCII字母、数字、~!*()’</p>
+    <p>client sends 2probe</p>
 
-    <p>备注：escape 在处理0xff之外字符的时候，是直接使用字符的unicode在前面加上一个 「%u」，而encodeURI则是先进行UTF-8，再在UTF-8的每个字节码前加上一个「%」；在处理0xff以内字符时，编码方式是一样的（都是「%XX」，XX为字符的16进制unicode，同时也是字符的UTF-8），只是范围（即哪些字符编码哪些字符不编码）不一样。encodeURI 是W3C 的标准，而 escape 是非标准。</p>
+    <p>server receives and sends 3probe</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>字符</th>
-          <th>UTF-8编码十进制</th>
-          <th>UTF-8编码十六进制</th>
-          <th>Unicode编码十进制</th>
-          <th>Unicode编码十进制</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ä</td>
-          <td>50084</td>
-          <td>C3A4</td>
-          <td>228</td>
-          <td>E4</td>
-        </tr>
-        <tr>
-          <td>ö</td>
-          <td>50102</td>
-          <td>C3B6</td>
-          <td>246</td>
-          <td>F6</td>
-        </tr>
-        <tr>
-          <td>ü</td>
-          <td>50108</td>
-          <td>C3BC</td>
-          <td>252</td>
-          <td>FC</td>
-        </tr>
-        <tr>
-          <td>ć</td>
-          <td>50311</td>
-          <td>C487</td>
-          <td>263</td>
-          <td>107</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>client receives and sends 5</p>
+
+    <p>server flushes and closes old transport and switches to new.</p>
   </li>
 </ul>
-
-<p>备注：（侵图必删）</p>
 
 
                 
@@ -344,10 +296,10 @@
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/04/12/websocket%E5%85%A5%E9%97%A8/" data-toggle="tooltip" data-placement="top" title="websocket简单入门">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/" data-toggle="tooltip" data-placement="top" title="Ascii、Unicode深入比较">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
