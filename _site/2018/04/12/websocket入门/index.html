@@ -8,20 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="洗尽铅华始见金，褪却浮华归本真">
     <meta name="keyword"  content="前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/articles/img/favicon.ico">
 
     <title>websocket简单入门 - 前端大世界</title>
 
-    <link rel="canonical" href="http://localhost:4000/2018/04/12/websocket%E5%85%A5%E9%97%A8/">
+    <link rel="canonical" href="http://localhost:4000/articles/2018/04/12/websocket%E5%85%A5%E9%97%A8/">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/articles/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/hux-blog.min.css">
+    <link rel="stylesheet" href="/articles/css/hux-blog.min.css">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/articles/css/syntax.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -62,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">前端大世界</a>
+            <a class="navbar-brand" href="/articles/">前端大世界</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,15 +75,15 @@
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/">Home</a>
+                        <a href="/articles/">Home</a>
                     </li>
                     
                     <li>
-                        <a href="/about/">About</a>
+                        <a href="/articles/about/">About</a>
                     </li>
                     
                     <li>
-                        <a href="/tags/">Tags</a>
+                        <a href="/articles/tags/">Tags</a>
                     </li>
                     
                 </ul>
@@ -126,7 +126,7 @@
     <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/post-bg-js-module.jpg')
+        background-image: url('/articles/img/post-bg-js-module.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -136,9 +136,9 @@
                 <div class="post-heading">
                     <div class="tags" style="margin-bottom: 0;">
                         
-                        <a class="tag" href="/tags/#http" title="http">http</a>
+                        <a class="tag" href="/articles/tags/#http" title="http">http</a>
                         
-                        <a class="tag" href="/tags/#websocket" title="websocket">websocket</a>
+                        <a class="tag" href="/articles/tags/#websocket" title="websocket">websocket</a>
                         
                     </div>
                     <h1>websocket简单入门</h1>
@@ -195,7 +195,7 @@
 
     <p>WebSocket 使用了自定义的二进制分帧格式，把每个应用消息切分成一或多个帧，发送到目的地之后再组装起来，等到接收到完整的消息后再通知接收端。基本的成帧协议定义了帧类型有操作码、有效载荷的长度，指定位置的Extension data和Application data，统称为Payload data，保留了一些特殊位和操作码供后期扩展。在打开握手完成后，终端发送一个关闭帧之前的任何时间里，数据帧可能由客户端或服务器的任何一方发送。具体的帧格式如下所示：</p>
 
-    <p><img src="/img/websocket.png" alt="websocket" /></p>
+    <p><img src="/articles/img/websocket.png" alt="websocket" /></p>
 
     <ul>
       <li>
@@ -298,7 +298,7 @@
                     
                     
                     <li class="next">
-                        <a href="/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/" data-toggle="tooltip" data-placement="top" title="Ascii、Unicode深入比较">Next Post &rarr;</a>
+                        <a href="/articles/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/" data-toggle="tooltip" data-placement="top" title="Ascii、Unicode深入比较">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -453,13 +453,13 @@
 </footer>
 
 <!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+<script src="/articles/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+<script src="/articles/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/js/hux-blog.min.js "></script>
+<script src="/articles/js/hux-blog.min.js "></script>
 
 
 <!-- async load function -->
@@ -497,7 +497,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
+        async("/articles/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},

@@ -34,7 +34,7 @@ tags:
 
     WebSocket 使用了自定义的二进制分帧格式，把每个应用消息切分成一或多个帧，发送到目的地之后再组装起来，等到接收到完整的消息后再通知接收端。基本的成帧协议定义了帧类型有操作码、有效载荷的长度，指定位置的Extension data和Application data，统称为Payload data，保留了一些特殊位和操作码供后期扩展。在打开握手完成后，终端发送一个关闭帧之前的任何时间里，数据帧可能由客户端或服务器的任何一方发送。具体的帧格式如下所示：
 
-    ![websocket](/img/websocket.png)
+    ![websocket](/articles/img/websocket.png)
 
     - FIN： 1 bit 。FIN是FINAL的缩写，它为1时表示一个数据传输结束。此位标示此帧是否是消息的最后帧，第一帧也可能是最后帧。
     
