@@ -1,7 +1,7 @@
 # Site settings
 title: 前端大世界
 SEOTitle: 前端大世界
-header-img: img/deepbg.jpg
+header-img: img/home-bg.jpg
 email: cycle263@gmail.com
 description: "洗尽铅华始见金，褪却浮华归本真"
 keyword: "前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web"
@@ -70,7 +70,7 @@ ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "大道至简"
-sidebar-avatar: img/header-hd.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/theone.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 

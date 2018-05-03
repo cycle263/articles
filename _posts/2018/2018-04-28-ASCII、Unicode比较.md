@@ -90,7 +90,7 @@ tags:
   * **encodeURI**
 
     encodeURI方法主要针对URL地址， encodeURI方法不会对下列字符编码： ASCII字母、数字、~!@#$&*()=:/,;?+'，
-    ![保留字符](/articles/img/encodeURI.jpg)
+    ![保留字符](/articles/img/in-post/encodeURI.jpg)
 
 
   * **encodeURIComponent**
