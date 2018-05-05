@@ -4,7 +4,7 @@ title:      "Ascii、Unicode深入比较"
 subtitle:   ""
 date:       2018-04-28
 author:     "Cycle263"
-header-img: "img/post-bg-js-module.jpg"
+header-img: "img/article-bg.jpg"
 tags:
     - 前端开发
     - 编码

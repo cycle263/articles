@@ -4,7 +4,7 @@ title:      "websocket简单入门"
 subtitle:   ""
 date:       2018-04-12
 author:     "Cycle263"
-header-img: "img/post-bg-js-module.jpg"
+header-img: "img/article-bg.jpg"
 tags:
     - http
     - websocket
