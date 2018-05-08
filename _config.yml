@@ -83,11 +83,15 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
-        title: "前端外刊评论",
-        href: "http://qianduan.guru/"
+        title: "阮一峰博客",
+        href: "http://www.ruanyifeng.com/blog/"
     },
     {
         title: "huxblog",
         href: "http://huangxuan.me/"
+    },
+    {
+        title: '张鑫旭',
+        href: 'http://www.zhangxinxu.com/'
     }
 ]
