@@ -74,6 +74,8 @@ tags:
 
   **[ASCII <-转换-> Unicode <-转换-> 中文](http://tool.chinaz.com/Tools/Unicode.aspx)**
 
+  **[HTML特殊字符编码对照表](http://www.jb51.net/onlineread/htmlchar.htm)**
+
 <br /><br />
 
 ## escape vs encodeURI(unicode vs utf-8)
