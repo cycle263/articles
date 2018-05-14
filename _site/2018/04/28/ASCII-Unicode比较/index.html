@@ -7,8 +7,8 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="洗尽铅华始见金，褪却浮华归本真">
-    <meta name="keyword"  content="前端, javascript, es6, css, html, react, webpack, jquery, 前端开发, http, 个人博客, web">
-    <link rel="shortcut icon" href="/articles/img/favicon.ico">
+    <meta name="keyword"  content="前端, 前端大世界, javascript, cycle, cycle263, es6, css, html, react, jquery, 前端开发, http, 博客, web">
+    <link rel="shortcut icon" href="/articles/img/world.ico">
 
     <title>Ascii、Unicode深入比较 - 前端大世界</title>
 
@@ -49,7 +49,7 @@
 
 
 <!-- hack iOS CSS :active style -->
-<body ontouchstart="">
+<body ontouchstart="" test="d">
 
     <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -126,7 +126,7 @@
     <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/articles/img/post-bg-js-module.jpg')
+        background-image: url('/articles/img/article-bg.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -138,7 +138,7 @@
                         
                         <a class="tag" href="/articles/tags/#前端开发" title="前端开发">前端开发</a>
                         
-                        <a class="tag" href="/articles/tags/#编码" title="编码">编码</a>
+                        <a class="tag" href="/articles/tags/#开发基础" title="开发基础">开发基础</a>
                         
                     </div>
                     <h1>Ascii、Unicode深入比较</h1>
@@ -263,6 +263,8 @@
 
 <p><strong><a href="http://tool.chinaz.com/Tools/Unicode.aspx">ASCII &lt;-转换-&gt; Unicode &lt;-转换-&gt; 中文</a></strong></p>
 
+<p><strong><a href="http://www.jb51.net/onlineread/htmlchar.htm">HTML特殊字符编码对照表</a></strong></p>
+
 <p><br /><br /></p>
 
 <h2 id="escape-vs-encodeuriunicode-vs-utf-8">escape vs encodeURI(unicode vs utf-8)</h2>
@@ -281,7 +283,7 @@
     <p><strong>encodeURI</strong></p>
 
     <p>encodeURI方法主要针对URL地址， encodeURI方法不会对下列字符编码： ASCII字母、数字、~!@#$&amp;*()=:/,;?+’，
-<img src="/articles/img/encodeURI.jpg" alt="保留字符" /></p>
+<img src="/articles/img/in-post/encodeURI.jpg" alt="保留字符" /></p>
   </li>
   <li>
     <p><strong>encodeURIComponent</strong></p>
@@ -349,6 +351,10 @@
                     </li>
                     
                     
+                    <li class="next">
+                        <a href="/articles/2018/05/09/%E6%9C%89%E8%B6%A3%E7%9A%84%E6%96%87%E6%AE%B5%E6%91%98%E5%BD%95/" data-toggle="tooltip" data-placement="top" title="有趣的文段摘录">Next Post &rarr;</a>
+                    </li>
+                    
                 </ul>
 
 
@@ -371,13 +377,15 @@
                     <h5><a href="/articles/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
         				
+                        <a href="/articles/tags/#前端开发" title="前端开发" rel="5">前端开发</a>
+                        
+                        <a href="/articles/tags/#javascript" title="javascript" rel="1">javascript</a>
+                        
                         <a href="/articles/tags/#http" title="http" rel="1">http</a>
                         
-                        <a href="/articles/tags/#websocket" title="websocket" rel="1">websocket</a>
+                        <a href="/articles/tags/#开发基础" title="开发基础" rel="1">开发基础</a>
                         
-                        <a href="/articles/tags/#前端开发" title="前端开发" rel="1">前端开发</a>
-                        
-                        <a href="/articles/tags/#编码" title="编码" rel="1">编码</a>
+                        <a href="/articles/tags/#情感" title="情感" rel="1">情感</a>
                         
         			</div>
                 </section>
@@ -389,9 +397,13 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://qianduan.guru/">前端外刊评论</a></li>
+                        <li><a href="http://www.ruanyifeng.com/blog/">阮一峰博客</a></li>
                     
                         <li><a href="http://huangxuan.me/">huxblog</a></li>
+                    
+                        <li><a href="http://www.zhangxinxu.com/">张鑫旭</a></li>
+                    
+                        <li><a href="http://coderlt.coding.me/">Aitter's Blog</a></li>
                     
                 </ul>
                 
@@ -506,9 +518,8 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/articles/js/bootstrap.min.js "></script>
 
-<!-- Custom Theme JavaScript -->
+<!-- Custom Theme JavaScript: hux -->
 <script src="/articles/js/hux-blog.min.js "></script>
-
 
 <!-- async load function -->
 <script>

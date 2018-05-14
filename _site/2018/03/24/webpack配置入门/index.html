@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="洗尽铅华始见金，褪却浮华归本真">
+    <meta name="keyword"  content="前端, 前端大世界, javascript, cycle, cycle263, es6, css, html, react, jquery, 前端开发, http, 博客, web">
+    <link rel="shortcut icon" href="/articles/img/world.ico">
+
+    <title>Webpack配置入门 - 前端大世界</title>
+
+    <link rel="canonical" href="http://localhost:4000/articles/2018/03/24/webpack%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/articles/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/articles/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/articles/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" test="d">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/articles/">前端大世界</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/articles/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/articles/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/articles/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/articles/img/article-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags" style="margin-bottom: 0;">
+                        
+                        <a class="tag" href="/articles/tags/#前端开发" title="前端开发">前端开发</a>
+                        
+                    </div>
+                    <h1>Webpack配置入门</h1>
+                    
+                    
+                    <h2 class="subheading">webpack配置系列</h2>
+                    
+                    <span class="meta">Posted by Cycle263 on March 24, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="webpack概念">webpack概念</h2>
+
+<blockquote>
+  <p>本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。</p>
+</blockquote>
+
+<p>webpack简单点来说就就是一个配置文件，所有的魔力都是在这一个文件中发生的。这个配置文件主要分为三大块:</p>
+
+<ul>
+  <li>
+    <p><strong>1、entry入口文件</strong> [string / Object string / Array string]</p>
+
+    <p>让webpack用哪个文件作为项目的入口, 指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。添加多个彼此不互相依赖的文件，可以使用数组格式.</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">entry</span><span class="p">:</span> <span class="s1">'./path/to/my/entry/file.js'</span>
+<span class="p">};</span>
+<span class="nx">or</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">entry</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">main</span><span class="p">:</span> <span class="s1">'./path/to/my/entry/file.js'</span><span class="p">,</span>
+        <span class="na">app</span><span class="p">:</span> <span class="s1">'./path/to/my/entry/app.js'</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>2、output 出口</strong></p>
+
+    <p>让webpack把处理完成的文件放在哪里, 以及如何命名这些文件。通过 output.filename 和 output.path 属性，来告诉 webpack bundle 的名称，以及我们想要生成(emit)到哪里。</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">filename</span><span class="p">:</span> <span class="s1">'[name].[chunkhash:6].js'</span><span class="p">,</span>
+    <span class="nx">chunkFilename</span><span class="p">:</span> <span class="s1">'[name].[chunkhash].js'</span><span class="p">,</span>
+    <span class="nx">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'dist'</span><span class="p">)</span>
+<span class="p">},</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>3、loader 模块</strong></p>
+
+    <p>loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。在 webpack 配置中定义 loader 时，要定义在 module.rules 中，而不是 rules。</p>
+
+    <p>每一个 loader 都是一个对象，使用 ! 号拼接的写法。Loader 的工作方式 是从右向左执行，链式地按照顺序进行编译。loader 链中的第一个返回值给下一个 loader，在最后一个 loader，返回所预期的结果。</p>
+
+    <p>loader 可以是同步或异步函数，也可使用 options 对象去接受配置参数。</p>
+
+    <p>在 webpack 的配置中 loader 有两个目标：</p>
+
+    <ul>
+      <li>
+        <p>识别出应该被对应的 loader 进行转换的那些文件。(使用 test 属性)</p>
+      </li>
+      <li>
+        <p>转换这些文件，从而使其能够被添加到依赖图中，并且最终添加到 bundle 中。(使用 use 属性)</p>
+      </li>
+    </ul>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">rules</span><span class="p">:</span> <span class="p">[{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">js|jsx</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
+      <span class="na">loader</span><span class="p">:</span> <span class="s1">'babel-loader'</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="s1">'env'</span><span class="p">,</span> <span class="s1">'react'</span><span class="p">,</span> <span class="s1">'es2017'</span><span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">less|css</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">use</span><span class="p">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">({</span>
+        <span class="na">use</span><span class="p">:</span> <span class="p">[</span><span class="s1">'css-loader'</span><span class="p">,</span> <span class="s1">'less-loader'</span><span class="p">],</span>
+        <span class="na">fallback</span><span class="p">:</span> <span class="s1">'style-loader'</span>
+      <span class="p">})</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">png|svg|jpg|gif</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">use</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader'</span><span class="p">,</span>
+        <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">limit</span><span class="p">:</span> <span class="mi">8192</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="s1">'images/[name].[hash:8].[ext]'</span>
+        <span class="p">}</span>
+      <span class="p">}]</span>
+    <span class="p">}]</span>
+  <span class="p">},</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>4、plugins 插件</strong></p>
+
+    <p>loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。
+想要使用一个插件，你只需要 require() 它，然后把它添加到 plugins 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。</p>
+  </li>
+</ul>
+
+<h2 id="webpack4的配置案例">webpack4的配置案例</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// webpack init</span>
+<span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'webpack'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">ExtractTextPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'extract-text-webpack-plugin'</span><span class="p">);</span>   <span class="c1">// 提取CSS文件</span>
+<span class="kd">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'html-webpack-plugin'</span><span class="p">);</span>   <span class="c1">// 采用模板引擎形式注入到HTML</span>
+<span class="kd">const</span> <span class="nx">CleanWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'clean-webpack-plugin'</span><span class="p">);</span>   <span class="c1">// build前清理目录插件</span>
+<span class="kd">const</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">WEBPACK_ENV</span><span class="p">;</span>  <span class="c1">// 自定义的webpack环境变量</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">entry</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">index</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'src/index.js'</span><span class="p">),</span>
+    <span class="na">vendors</span><span class="p">:</span> <span class="p">[</span><span class="s1">'react'</span><span class="p">,</span> <span class="s1">'react-dom'</span><span class="p">,</span> <span class="s1">'jquery'</span><span class="p">]</span>   <span class="c1">// 第三方js，变动少单独打包</span>
+  <span class="p">},</span>
+  <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="s1">'[name].[chunkhash:6].js'</span><span class="p">,</span>
+    <span class="na">chunkFilename</span><span class="p">:</span> <span class="s1">'[name].[chunkhash].js'</span><span class="p">,</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'dist'</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="nx">env</span><span class="p">,</span>
+	<span class="na">devtool</span><span class="p">:</span> <span class="s1">'source-map'</span><span class="p">,</span>	<span class="c1">// map模式</span>
+  <span class="na">performance</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">hints</span><span class="p">:</span> <span class="kc">false</span> 	<span class="c1">// 关闭warning日志信息</span>
+  <span class="p">},</span>
+  <span class="na">devServer</span><span class="p">:</span> <span class="p">{</span>    <span class="c1">// 开发环境本地服务启动</span>
+    <span class="na">contentBase</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="na">resolve</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">extensions</span><span class="p">:</span> <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'.js'</span><span class="p">,</span> <span class="s1">'.jsx'</span><span class="p">],</span> <span class="c1">// 扩展名，import时可以不加的后缀名</span>
+    <span class="na">alias</span><span class="p">:</span> <span class="p">{</span>  <span class="c1">// 别名定义</span>
+      <span class="na">imagesPath</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s2">"src/assets/images/"</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">rules</span><span class="p">:</span> <span class="p">[{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">js|jsx</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
+      <span class="na">loader</span><span class="p">:</span> <span class="s1">'babel-loader'</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="s1">'env'</span><span class="p">,</span> <span class="s1">'react'</span><span class="p">,</span> <span class="s1">'es2017'</span><span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">less|css</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">use</span><span class="p">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">({</span>
+        <span class="na">use</span><span class="p">:</span> <span class="p">[</span><span class="s1">'css-loader'</span><span class="p">,</span> <span class="s1">'less-loader'</span><span class="p">],</span>
+        <span class="na">fallback</span><span class="p">:</span> <span class="s1">'style-loader'</span>
+      <span class="p">})</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.(</span><span class="sr">png|svg|jpg|gif</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+      <span class="na">use</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader'</span><span class="p">,</span>
+        <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">limit</span><span class="p">:</span> <span class="mi">8192</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="s1">'images/[name].[hash:8].[ext]'</span>
+        <span class="p">}</span>
+      <span class="p">}]</span>
+    <span class="p">}]</span>
+  <span class="p">},</span>
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">(</span><span class="s1">'dist'</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">ExtractTextPlugin</span><span class="p">(</span><span class="s1">'[name]-style.[hash:6].css'</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="na">title</span><span class="p">:</span> <span class="s1">'webpack4 入门教程'</span><span class="p">,</span>
+      <span class="na">template</span><span class="p">:</span> <span class="s1">'./index.html'</span>
+    <span class="p">})</span>
+  <span class="p">],</span>
+  <span class="na">optimization</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">splitChunks</span><span class="p">:</span> <span class="p">{</span>    <span class="c1">// 分离第三方js</span>
+      <span class="na">chunks</span><span class="p">:</span> <span class="s1">'initial'</span><span class="p">,</span>
+      <span class="na">cacheGroups</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">vendor</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">test</span><span class="p">:</span> <span class="sr">/node_modules</span><span class="se">\/</span><span class="sr">/</span><span class="p">,</span>
+          <span class="na">name</span><span class="p">:</span> <span class="s1">'vendors'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="webpack命令">webpack命令</h2>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">webpack --progress --colors</code>   编译进度和颜色</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">webpack --progress --colors --watch</code>   监控编译，代码变动后自动编译</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">webpack -p</code>  对打包文件进行压缩，提供production, –optimize-minimize –optimize-occurence-order的简写</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">webpack -d</code>  提供source map，方便调试，–debug –devtool sourcemap –output-pathinfo的简写</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">webpack -w</code>  watch文件，实时进行打包更新</p>
+  </li>
+</ul>
+
+
+
+                
+
+                
+
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/articles/2018/04/04/markdown%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" data-toggle="tooltip" data-placement="top" title="Markdown入门基础">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags post -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/articles/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                        <a href="/articles/tags/#前端开发" title="前端开发" rel="5">前端开发</a>
+                        
+                        <a href="/articles/tags/#javascript" title="javascript" rel="1">javascript</a>
+                        
+                        <a href="/articles/tags/#http" title="http" rel="1">http</a>
+                        
+                        <a href="/articles/tags/#开发基础" title="开发基础" rel="1">开发基础</a>
+                        
+                        <a href="/articles/tags/#情感" title="情感" rel="1">情感</a>
+                        
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://www.ruanyifeng.com/blog/">阮一峰博客</a></li>
+                    
+                        <li><a href="http://huangxuan.me/">huxblog</a></li>
+                    
+                        <li><a href="http://www.zhangxinxu.com/">张鑫旭</a></li>
+                    
+                        <li><a href="http://coderlt.coding.me/">Aitter's Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/cycle263">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/cycle263">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/cycle263">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 前端大世界 2018 |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=cycle263&repo=articles&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/articles/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/articles/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript: hux -->
+<script src="/articles/js/hux-blog.min.js "></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/articles/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

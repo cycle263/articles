@@ -10,9 +10,9 @@
     <meta name="keyword"  content="前端, 前端大世界, javascript, cycle, cycle263, es6, css, html, react, jquery, 前端开发, http, 博客, web">
     <link rel="shortcut icon" href="/articles/img/world.ico">
 
-    <title>websocket简单入门 - 前端大世界</title>
+    <title>Webpack之插件配置篇 - 前端大世界</title>
 
-    <link rel="canonical" href="http://localhost:4000/articles/2018/04/12/websocket%E5%85%A5%E9%97%A8/">
+    <link rel="canonical" href="http://localhost:4000/articles/2018/05/12/webpack%E4%B9%8B%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE%E7%AF%87/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/articles/css/bootstrap.min.css">
@@ -136,15 +136,15 @@
                 <div class="post-heading">
                     <div class="tags" style="margin-bottom: 0;">
                         
-                        <a class="tag" href="/articles/tags/#http" title="http">http</a>
+                        <a class="tag" href="/articles/tags/#前端开发" title="前端开发">前端开发</a>
                         
                     </div>
-                    <h1>websocket简单入门</h1>
+                    <h1>Webpack之插件配置篇</h1>
                     
                     
-                    <h2 class="subheading"></h2>
+                    <h2 class="subheading">webpack配置系列</h2>
                     
-                    <span class="meta">Posted by Cycle263 on April 12, 2018</span>
+                    <span class="meta">Posted by Cycle263 on May 12, 2018</span>
                 </div>
             </div>
         </div>
@@ -162,127 +162,168 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="websocket">websocket</h2>
-
-<blockquote>
-  <p>Websocket借用了HTTP的协议来完成一部分握手，是一个持久化的协议，是相对于HTTP这种非持久(长连接，循环连接不算)的协议来说，更像是HTTP协议上的一种补充。Web Socket是一种HTML 5为Web定制的全双工通讯协议，没有“请求 - 响应”的概念，浏览器与服务器完全平等，连接一旦建立就一直开放，双方可随时向对方发送任意数据，没有推拉之分。</p>
-</blockquote>
-
-<p>WebSocket在2011年被IETF定为标准RFC 6455，并被RFC 7936补充规范，WebSocket API被W3C定为标准。</p>
-
-<p>ws最大的优势：在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息，数据的传输使用帧来传递，并且允许跨域通信。</p>
-
-<p>目前主流的浏览器都支持WebSocket，并且有第三方的API：Guillermo Rauch创建了一个Socket.IO，遵循Engine.IO协议<a href="https://github.com/socketio/engine.io-protocol">Engine.IO protocol</a>。</p>
+				<h2 id="插件推荐">插件推荐</h2>
 
 <ul>
   <li>
-    <p><strong>发送包类型：</strong></p>
-
-    <ul>
-      <li>0: open  transport is opened(传输打开)</li>
-      <li>1: close</li>
-      <li>2: ping  Send by client. Server should answer with a pong packet containing the same data</li>
-      <li>3: pong  Sent by the server to respond to ping packets.</li>
-      <li>4: message  actual message, client and server should call their callbacks with the data.(callback - 42, not - 41)</li>
-      <li>5: upgrade  polling or websoket</li>
-      <li>6: noop  等待</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>数据成帧</strong></p>
-
-    <p>WebSocket 使用了自定义的二进制分帧格式，把每个应用消息切分成一或多个帧，发送到目的地之后再组装起来，等到接收到完整的消息后再通知接收端。基本的成帧协议定义了帧类型有操作码、有效载荷的长度，指定位置的Extension data和Application data，统称为Payload data，保留了一些特殊位和操作码供后期扩展。在打开握手完成后，终端发送一个关闭帧之前的任何时间里，数据帧可能由客户端或服务器的任何一方发送。具体的帧格式如下所示：</p>
-
-    <p><img src="/articles/img/in-post/websocket.png" alt="websocket" /></p>
+    <p><strong>1、代码优化之:</strong></p>
 
     <ul>
       <li>
-        <p>FIN： 1 bit 。FIN是FINAL的缩写，它为1时表示一个数据传输结束。此位标示此帧是否是消息的最后帧，第一帧也可能是最后帧。</p>
+        <p>CommonsChunkPlugin - 抽取公共代码。可以提取出多个代码块都依赖的模块形成一个单独的模块。要发挥CommonsChunkPlugin的作用还需要浏览器缓存机制的配合。在应用有多个页面的场景下提取出所有页面公共的代码减少单个页面的代码，在不同页面之间切换时所有页面公共的代码之前被加载过而不必重新加载。这个方法可以非常有效的提升应用性能。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+  <span class="na">names</span><span class="p">:</span> <span class="p">[</span><span class="s2">"vendor1"</span><span class="p">,</span><span class="s2">"vendor2"</span><span class="p">],</span> <span class="c1">// 要和entry的加载顺序相反</span>
+  <span class="na">minChunks</span><span class="p">:</span> <span class="kc">Infinity</span>
+<span class="p">})</span>
+</code></pre></div>        </div>
       </li>
       <li>
-        <p>RSV1，RSV2，RSV3： 各1 bit 。必须是0，除非协商了扩展定义了非0的意义。</p>
-      </li>
-      <li>
-        <p>opcode：4 bit。表示被传输帧的类型：x0 表示一个后续帧；x1 表示一个文本帧；x2 表示一个二进制帧；x3-7 为以后的非控制帧保留；x8 表示一个连接关闭；x9 表示一个ping；xA 表示一个pong；xB-F 为以后的控制帧保留。同一个数据即使分片传输，它的每个数据帧的Opcode也应该相同。</p>
-      </li>
-      <li>
-        <p>Mask： 1 bit。表示净荷是否有掩码（只适用于客户端发送给服务器的消息）。</p>
-      </li>
-      <li>
-        <p>Payload length： 7 bit, 7 + 16 bit, 7 + 64 bit。 净荷长度由可变长度字段表示： 如果是 0~125，就是净荷长度；如果是 126，则接下来 2 字节表示的 16 位无符号整数才是这一帧的长度； 如果是 127，则接下来 8 字节表示的 64 位无符号整数才是这一帧的长度。</p>
-      </li>
-      <li>
-        <p>Masking-key：0或4 Byte。 用于给净荷加掩护，客户端到服务器标记。</p>
-      </li>
-      <li>
-        <p>Extension data： x Byte。默认为0 Byte，除非协商了扩展。</p>
-      </li>
-      <li>
-        <p>Application data： y Byte。 在”Extension data”之后，占据了帧的剩余部分。</p>
-      </li>
-      <li>
-        <p>Payload data： (x + y) Byte。”extension data” 后接 “application data”。</p>
+        <p>UglifyJsPlugin - 压缩混淆代码，webpack –optimize-minimize 选项会开启 UglifyJsPlugin来压缩输出的js，但是默认的UglifyJsPlugin配置并没有把代码压缩到最小输出的js里还是有注释和空格，需要覆盖默认的配置</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">UglifyJsPlugin</span><span class="p">({</span>
+  <span class="c1">// 最紧凑的输出</span>
+  <span class="na">beautify</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="c1">// 删除所有的注释</span>
+  <span class="na">comments</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="na">compress</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// 在UglifyJs删除没有用到的代码时不输出警告  </span>
+    <span class="na">warnings</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="c1">// 删除所有的 `console` 语句</span>
+    <span class="c1">// 还可以兼容ie浏览器</span>
+    <span class="na">drop_console</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// 内嵌定义了但是只用到一次的变量</span>
+    <span class="na">collapse_vars</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// 提取出出现多次但是没有定义成变量去引用的静态值</span>
+    <span class="na">reduce_vars</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>        </div>
       </li>
     </ul>
   </li>
   <li>
-    <p><strong>生成(封装)数据帧</strong></p>
+    <p><strong>2、 依赖注入之:</strong></p>
 
-    <p>待续…</p>
+    <ul>
+      <li>
+        <p>DefinePlugin - 自由变量注入</p>
+      </li>
+      <li>
+        <p>ProvidePlugin - 模块变量标示符注入，自动加载模块，全局使用变量</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 官方文档推荐使用下面的插件确保 NODE_ENV</span>
+<span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
+  <span class="s1">'process.env.NODE_ENV'</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">||</span> <span class="s1">'production'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
+  <span class="na">$</span><span class="p">:</span> <span class="s1">'jquery'</span><span class="p">,</span>
+  <span class="na">jQuery</span><span class="p">:</span> <span class="s1">'jquery'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="c1">// in a module</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'#item'</span><span class="p">);</span> <span class="c1">// 有效</span>
+<span class="nx">jQuery</span><span class="p">(</span><span class="s1">'#item'</span><span class="p">);</span> <span class="c1">// 有效</span>
+<span class="c1">// $和jQuery 自动被设置为 "jquery" 输出的内容</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
   </li>
   <li>
-    <p><strong>解析数据帧</strong></p>
+    <p><strong>3、 文件抽取之:</strong></p>
 
-    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">decodeDataFrame</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">frame</span> <span class="o">=</span> <span class="p">{</span>
-          <span class="c1">//解析前两个字节的基本数据</span>
-          <span class="na">FIN</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">7</span><span class="p">,</span>
-          <span class="na">Opcode</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">,</span>
-          <span class="na">Mask</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">7</span><span class="p">,</span>
-          <span class="na">PayloadLength</span><span class="p">:</span> <span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&amp;</span><span class="mh">0x7F</span>
-      <span class="p">};</span>
-      <span class="c1">//处理特殊长度126和127</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span> <span class="o">==</span> <span class="mi">126</span><span class="p">)</span>
-          <span class="nx">frame</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">];</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="o">==</span><span class="mi">127</span><span class="p">)</span>
-          <span class="nx">frame</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">24</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">16</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">];</span>
-      <span class="c1">//判断是否使用掩码</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">Mask</span><span class="p">){</span>
-          <span class="c1">//获取掩码实体</span>
-          <span class="nx">frame</span><span class="p">.</span><span class="nx">MaskingKey</span> <span class="o">=</span> <span class="p">[</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]];</span>
-          <span class="c1">//对数据和掩码做异或运算</span>
-          <span class="k">for</span><span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">s</span> <span class="o">=</span> <span class="p">[];</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span>
-              <span class="nx">s</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="nx">j</span><span class="p">]</span><span class="o">^</span><span class="nx">frame</span><span class="p">.</span><span class="nx">MaskingKey</span><span class="p">[</span><span class="nx">j</span><span class="o">%</span><span class="mi">4</span><span class="p">]);</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="nx">s</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadLength</span><span class="p">);</span> <span class="c1">//否则直接使用数据</span>
-      <span class="p">}</span>
-      <span class="c1">//数组转换成缓冲区来使用</span>
-      <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-      <span class="c1">//如果有必要则把缓冲区转换成字符串来使用</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">frame</span><span class="p">.</span><span class="nx">Opcode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
-      <span class="c1">//设置上数据部分</span>
-      <span class="nx">frame</span><span class="p">.</span><span class="nx">PayloadData</span> <span class="o">=</span> <span class="nx">s</span><span class="p">;</span>
-      <span class="c1">//返回数据帧</span>
-      <span class="k">return</span> <span class="nx">frame</span><span class="p">;</span>
-  <span class="p">};</span>
-  <span class="kd">function</span> <span class="nx">onmessage</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-      <span class="nx">e</span> <span class="o">=</span> <span class="nx">decodeDataFrame</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="c1">//解析数据帧</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="c1">//把数据帧输出到控制台</span>
-  <span class="p">};</span>  
-</code></pre></div>    </div>
+    <ul>
+      <li>
+        <p>DllPlugin 用某种方法实现了拆分 bundles，同时还大大提升了构建的速度。Dll这个概念应该是借鉴了Windows系统的dll。打包dll的时候，Webpack会将所有包含的库做一个索引，写在一个manifest文件中，而引用dll的代码（dll user）在打包的时候，只需要读取这个manifest文件，就可以了。</p>
+
+        <p>Dll存在的优势：Dll打包以后是独立存在的，只要其包含的库没有增减、升级，hash也不会变化，只要包含的库没有增减、升级，就不需要重新打包。这样也大大提高了每次编译的速度。</p>
+
+        <p>webpack.DllPlugin的选项中，path是manifest文件的输出路径；name是dll暴露的对象名，要跟output里保持一致；context是解析包路径的上下文。output.library 的选项相结合可以暴露出 (也叫做放入全局域) dll 函数。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// webpack.dll.config.js</span>
+<span class="nx">output</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'./static'</span><span class="p">),</span>
+  <span class="nx">filename</span><span class="p">:</span> <span class="s1">'[name].dll.js'</span><span class="p">,</span>
+  <span class="nx">library</span><span class="p">:</span> <span class="s1">'[name]_lib'</span>   <span class="c1">//</span>
+<span class="p">},</span>
+<span class="nx">plugins</span><span class="p">:</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DllPlugin</span><span class="p">({</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'dist'</span><span class="p">,</span> <span class="s1">'[name]-manifest.json'</span><span class="p">),</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'[name]_lib'</span>    <span class="c1">//</span>
+  <span class="p">}),</span>
+<span class="p">],</span>
+</code></pre></div>        </div>
+
+        <p>DllReferencePlugin的选项中，context需要跟之前保持一致，这个用来指导Webpack匹配manifest中库的路径；manifest用来引入刚才输出的manifest文件。</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DllReferencePlugin</span><span class="p">({</span>
+  <span class="na">context</span><span class="p">:</span> <span class="nx">__dirname</span><span class="p">,</span>
+  <span class="na">manifest</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./dist/vendor-manifest.json'</span><span class="p">),</span>
+<span class="p">}),</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>ExtractTextPlugin - 抽取css文件</p>
+      </li>
+      <li>
+        <p>AssetsPlugin - assets-webpack-plugin该插件会在每次编译完成后，生成一份webpack.assets.js文件，文件的内容是最新的编译后的文件名称</p>
+
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">WEBPACK_ASSETS</span><span class="o">=</span><span class="p">{</span><span class="s2">"main"</span><span class="p">:{</span><span class="s2">"js"</span><span class="p">:</span><span class="s2">"89c6e5b6d9bbc5fec2b8.index.js"</span><span class="p">}}</span>
+
+<span class="c1">// webpack配置</span>
+<span class="k">new</span> <span class="nx">AssetsPlugin</span><span class="p">({</span>
+  <span class="na">filename</span><span class="p">:</span><span class="s1">'build/webpack.assets.js'</span><span class="p">,</span>
+  <span class="na">processOutput</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">assets</span><span class="p">){</span>
+      <span class="k">return</span> <span class="s1">'window.WEBPACK_ASSETS='</span><span class="o">+</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">assets</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1">// html使用</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;script src="static/webpack.assets.js?v='</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="s1">'"&gt;&lt;</span><span class="err">\</span><span class="s1">/script&gt;'</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;script src="static/'</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">WEBPACK_ASSETS</span><span class="p">[</span><span class="s1">'vendors'</span><span class="p">].</span><span class="nx">js</span> <span class="o">+</span> <span class="s1">'"&gt;&lt;</span><span class="err">\</span><span class="s1">/script&gt;'</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div>        </div>
+      </li>
+    </ul>
   </li>
   <li>
-    <p><strong>example:</strong></p>
+    <p><strong>4、 开发体验优化之:</strong></p>
 
-    <p>client connects through new transport</p>
+    <ul>
+      <li>
+        <p>WebpackNotifierPlugin - 编译完成动态通知</p>
+      </li>
+      <li>
+        <p>HtmlWebpackPlugin - 采用模板引擎形式注入到html文件，让开发更加easy</p>
+      </li>
+      <li>
+        <p>open-browser-webpack-plugin - 打开服务器后 会自动打开浏览器</p>
+      </li>
+      <li>
+        <p>HotModuleReplacementPlugin - 热更新插件</p>
+      </li>
+      <li>
+        <p>SourceMapDevToolPlugin 过滤Sourcemap文件</p>
 
-    <p>client sends 2probe</p>
+        <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 添加 Sourcemap 支持</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span>
+  <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">SourceMapDevToolPlugin</span><span class="p">({</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="s1">'[file].map'</span><span class="p">,</span>
+    <span class="na">exclude</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vendor.js'</span><span class="p">]</span>  <span class="c1">// vendor 通常不需要 sourcemap</span>
+  <span class="p">})</span>
+<span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>5、 目录/文件拷贝之:</strong></p>
 
-    <p>server receives and sends 3probe</p>
-
-    <p>client receives and sends 5</p>
-
-    <p>server flushes and closes old transport and switches to new.</p>
+    <ul>
+      <li>CopyWebpackPlugin - 目录及文件拷贝</li>
+    </ul>
   </li>
 </ul>
 
@@ -295,13 +336,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/articles/2018/04/09/Javascript%E5%8E%9F%E7%94%9F%E5%AF%B9%E8%B1%A1Date%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="JavaScript原生对象Date详解">&larr; Previous Post</a>
+                        <a href="/articles/2018/05/09/%E6%9C%89%E8%B6%A3%E7%9A%84%E6%96%87%E6%AE%B5%E6%91%98%E5%BD%95/" data-toggle="tooltip" data-placement="top" title="有趣的文段摘录">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/articles/2018/04/28/ASCII-Unicode%E6%AF%94%E8%BE%83/" data-toggle="tooltip" data-placement="top" title="Ascii、Unicode深入比较">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
