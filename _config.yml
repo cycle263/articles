@@ -93,5 +93,9 @@ friends: [
     {
         title: '张鑫旭',
         href: 'http://www.zhangxinxu.com/'
+    },
+    {
+        title: 'Aitter's Blog',
+        href: 'http://coderlt.coding.me/'
     }
 ]
