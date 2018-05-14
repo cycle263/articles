@@ -2,11 +2,13 @@
   .post-container,
   .sidebar-container {
     padding-right: 5%;
+    background-color: white;
   }
 }
 @media (min-width: 768px) {
   .post-container {
     padding-right: 5%;
+    background-color: white;
   }
 }
 .sidebar-container {
