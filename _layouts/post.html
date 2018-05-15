@@ -58,22 +58,25 @@ layout: default
                     {% endif %}
                 </ul>
 
+                <!-- gitment comment -->
+                {% if site.gitment_username %}
                 <div id="gitmentContainer"></div>
-                <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-                <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-                <script>
-                    var gitment = new Gitment({
-                        id: '{{page.title}}',
-                        owner: 'cycle263',
-                        repo: 'articles',
-                        oauth: {
-                            client_id: '0bc3014392a3379f4f1b',
-                            client_secret: '1e66ded10616c7b4ca44cf474c785324d2f8e7fc',
-                        },
-                    });
-                    gitment.render('gitmentContainer');
-                </script>
-            </div>
+                    <link rel="stylesheet" href="https://gw.alipayobjects.com/os/rmsportal/CjSCkRTBJIfXIMFURtaW.css">
+                    <script src="https://gw.alipayobjects.com/os/rmsportal/QkZaqAfbMixTZEZkSGpp.js"></script>
+                    <script>
+                        var gitment = new Gitment({
+                            id: '{{page.title}}',
+                            owner: 'cycle263',
+                            repo: 'articles',
+                            oauth: {
+                                client_id: '0bc3014392a3379f4f1b',
+                                client_secret: '1e66ded10616c7b4ca44cf474c785324d2f8e7fc',
+                            },
+                        });
+                        gitment.render('gitmentContainer');
+                    </script>
+                </div>
+                {% endif %}
 
             <!-- Sidebar Container -->
             <div class="
