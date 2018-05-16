@@ -7,7 +7,7 @@ author:     "Cycle263"
 header-img: "img/article-bg.jpg"
 tags:
     - 前端开发
-    - JavaScript
+    - Javascript
 ---
 
 ## this对象
