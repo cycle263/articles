@@ -6,7 +6,7 @@ date:       2018-04-09
 author:     "Cycle263"
 header-img: "img/article-bg.jpg"
 tags:
-    - javascript
+    - Javascript
     - 前端开发
 ---
 
