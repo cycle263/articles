@@ -99,7 +99,11 @@ tags:
     + activeStyle:object
 
       ```react
-      <NavLink to="/about" activeClassName="active" activeStyle={{color: 'green', fontWeight: 'bold'}}>MyBlog</NavLink>
+      const style = {
+        color: 'green',
+        fontWeight: 'bold'
+      };
+      <NavLink to="/about" activeClassName="active" activeStyle={style}>MyBlog</NavLink>
       ```
     
     + exact: bool, 是否精准匹配时才激活样式
