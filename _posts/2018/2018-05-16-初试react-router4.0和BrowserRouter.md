@@ -98,7 +98,7 @@ tags:
 
     + activeStyle:object
 
-      ```html
+      ```react
       <NavLink to="/about" activeClassName="active" activeStyle={{color: 'green', fontWeight: 'bold'}}>MyBlog</NavLink>
       ```
     
