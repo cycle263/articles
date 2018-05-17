@@ -22,7 +22,7 @@ tags:
 
     + basename:string, 为所有位置添加一个基准Path
 
-      ```
+      ```html
       <BrowserRouter basename="/minooo" />
       <Link to="/react" />  // 渲染为 <a href="/minooo/react">
       ```
@@ -32,7 +32,7 @@ tags:
     + forceRefresh: bool, 当浏览器不支持 HTML5 的 history API 时强制刷新页面。
 
       ```js
-      const supportsHistory = 'pushState' in window.history
+      const supportsHistory = 'pushState' in window.history;
       <BrowserRouter forceRefresh={!supportsHistory} />
       ```
 
@@ -110,7 +110,7 @@ tags:
 
   - Switch 只渲染出第一个与当前访问地址匹配的 <Route> 或 <Redirect>。
 
-    ```es6
+    ```html
     <Fade>
       <Switch>
         {/* 用了Switch 这里每次只匹配一个路由，所有只有一个节点。 */}
