@@ -66,9 +66,11 @@ tags:
 
       - component 只有当访问地址和路由匹配时，一个 React component 才会被渲染，此时此组件接受 route props (match, location, history)。
 
-        ```js
+        ```html
         <Route path="/user/:username" component={User} />
+        ```
 
+        ```javascript
         const User = ({ match }) => {
           return (<h1>Hello {match.params.username}!</h1>);
         };
