@@ -71,9 +71,9 @@ tags:
         ```
 
         ```javascript
-        const User = ({ match }) => {
+        const User = ({ match } => {
           return (<h1>Hello {match.params.username}!</h1>);
-        };
+        });
         ```
 
       - path: string, 任何可以被 path-to-regexp解析的有效 URL 路径
@@ -98,8 +98,8 @@ tags:
 
     + activeStyle:object
 
-      ```js
-      <NavLink to="/about" activeClassName="active" activeStyle={{ color: 'green', fontWeight: 'bold' }}>MyBlog</NavLink>
+      ```html
+      <NavLink to="/about" activeClassName="active" activeStyle={{color: 'green', fontWeight: 'bold'}}>MyBlog</NavLink>
       ```
     
     + exact: bool, 是否精准匹配时才激活样式
