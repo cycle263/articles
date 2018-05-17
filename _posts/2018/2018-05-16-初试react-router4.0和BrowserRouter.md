@@ -51,7 +51,7 @@ tags:
     </BrowserRouter>
     ```
 
-    ```json
+    ```js
     // webpack devServer配置
     devServer: {
       contentBase: path.resolve(__dirname),
