@@ -98,7 +98,7 @@ tags:
 
     + activeStyle:object
 
-      ```react
+      ```jsx
       const style = {
         color: 'green',
         fontWeight: 'bold'
