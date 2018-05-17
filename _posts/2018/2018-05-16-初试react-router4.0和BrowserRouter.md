@@ -66,6 +66,7 @@ tags:
 
         ```js
         <Route path="/user/:username" component={User} />
+        
         const User = ({ match }) => {
           return (<h1>Hello {match.params.username}!</h1>);
         };
