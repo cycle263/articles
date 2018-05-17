@@ -22,7 +22,7 @@ tags:
 
     + basename:string, 为所有位置添加一个基准Path
 
-      ```js
+      ```
       <BrowserRouter basename="/minooo" />
       <Link to="/react" />  // 渲染为 <a href="/minooo/react">
       ```
@@ -66,7 +66,7 @@ tags:
 
         ```js
         <Route path="/user/:username" component={User} />
-        
+
         const User = ({ match }) => {
           return (<h1>Hello {match.params.username}!</h1>);
         };
@@ -106,7 +106,7 @@ tags:
 
   - Switch 只渲染出第一个与当前访问地址匹配的 <Route> 或 <Redirect>。
 
-    ```js
+    ```es6
     <Fade>
       <Switch>
         {/* 用了Switch 这里每次只匹配一个路由，所有只有一个节点。 */}
