@@ -40,7 +40,7 @@ tags:
 
     BrowserRouter模式需求后端服务器配合，如nginx设置rewrite，如webpack-dev-server服务设置historyApiFallback配置。
 
-    ```js
+    ```html
     // BrowserRouter
     <BrowserRouter>
       <Switch>
@@ -49,7 +49,9 @@ tags:
         <Redirect from="/" to="/index"></Redirect>
       </Switch>
     </BrowserRouter>
+    ```
 
+    ```json
     // webpack devServer配置
     devServer: {
       contentBase: path.resolve(__dirname),
