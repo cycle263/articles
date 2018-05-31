@@ -16,14 +16,29 @@ tags:
  
   ws最大的优势：在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息，数据的传输使用帧来传递，并且允许跨域通信。 
 
+* **socket.io**
+
   目前主流的浏览器都支持WebSocket，并且有第三方的API：Guillermo Rauch创建了一个Socket.IO，遵循Engine.IO协议[Engine.IO protocol](https://github.com/socketio/engine.io-protocol)。socket.io 底层是 engine.io，这个库实现了跨平台的双向通信,使用了 WebSocket 和 XMLHttprequest（或JSONP） 封装了一套自己的 Socket 协议，在低版本浏览器里面使用长轮询替代 WebSocket。一个完整的 Engine.IO Socket 包括多个 XHR 和 WebSocket 连接。
 
   为了在每一种浏览器上支持实时通讯，Socket.IO 在运行中选择最佳的传输方式，而不影响API。支持的方式为：WebSocket, Adobe Flash Socket, AJAX long polling, AJAX multipart streaming, Forever Iframe, JSONP Polling。
 
   ```js
+  // socket.io 流程
+
   client request xhr ---->> server return { open: 0, sid, upgrades: [websocket/longpoll] }
   client start WebSocket -- ping probe -->> server return pong probe -->> stop longpoll
   ```
+
+* **websocket vs http*
+
+    |      http          |    WebSocket        |
+    | ------------------ | -----------------   |
+    | 单向通信，client请求  |   全双工双向通信      |
+    | 基于http，支持性好    | 新的协议，兼容http    |
+    | 简单，轻量，断线重连   | 较复杂，重连需额外部署 |
+    | 少几个属性           | Upgrade: websocket / Connection: Upgrade / Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw== |
+
+    websocket与服务端进行握手，是通过http协议完成的，请求->响应，最为关键的请求报文字段Sec-WebSocket-Key， 它是一个Base64 encode的值，这个是浏览器随机生成的。服务端收到报文后，如果支持 WebSocket 协议，那么就会将自己的通信协议切换到 WebSocket，并且会返回Sec-WebSocket-Accept，这个则是经过服务端加密过后的 Sec-WebSocket-Key。
 
 * **发送包类型：**
 
