@@ -12,11 +12,13 @@ tags:
 ## websocket
 
   > Websocket借用了HTTP的协议来完成一部分握手，是一个持久化的协议，是相对于HTTP这种非持久(长连接，循环连接不算)的协议来说，更像是HTTP协议上的一种补充。Web Socket是一种HTML 5为Web定制的全双工通讯协议，没有“请求 - 响应”的概念，浏览器与服务器完全平等，连接一旦建立就一直开放，双方可随时向对方发送任意数据，没有推拉之分。  
-  WebSocket在2011年被IETF定为标准RFC 6455，并被RFC 7936补充规范，WebSocket API被W3C定为标准。
+  WebSocket在2011年被IETF定为标准RFC 6455，并被RFC 7936补充规范，WebSocket API被W3C定为标准。WebSocekt 是 HTML5 规范中的一部分，其借鉴了 socket 的思想，为 client 和 server 之间提供了类似的双向通信机制。同时，WebSocket 又是一种新的应用层协议，包含一套标准的 API；而 socket 并不是一个协议，而是一组接口，其主要方便大家直接使用更底层的协议（比如 TCP 或 UDP）
  
   ws最大的优势：在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息，数据的传输使用帧来传递，并且允许跨域通信。 
 
 * **socket.io**
+
+  > 网络应用中，两个应用程序同时需要向对方发送消息的能力（即全双工通信），所利用到的技术就是 socket，其能够提供端对端的通信。对于程序员而言，其需要在 A 端创建一个 socket 实例，并为这个实例提供其所要连接的 B 端的 IP 地址和端口号，而在 B 端创建另一个 socket 实例，并且绑定本地端口号来进行监听。当 A 和 B 建立连接后，双方就建立了一个端对端的 TCP 连接，从而可以进行双向通信。
 
   目前主流的浏览器都支持WebSocket，并且有第三方的API：Guillermo Rauch创建了一个Socket.IO，遵循Engine.IO协议[Engine.IO protocol](https://github.com/socketio/engine.io-protocol)。socket.io 底层是 engine.io，这个库实现了跨平台的双向通信,使用了 WebSocket 和 XMLHttprequest（或JSONP） 封装了一套自己的 Socket 协议，在低版本浏览器里面使用长轮询替代 WebSocket。一个完整的 Engine.IO Socket 包括多个 XHR 和 WebSocket 连接。
 
