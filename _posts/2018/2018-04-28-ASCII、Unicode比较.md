@@ -83,6 +83,8 @@ tags:
 
   **[HTML特殊字符编码对照表](http://www.jb51.net/onlineread/htmlchar.htm)**
 
+   **[ASCII对照表](http://tool.oschina.net/commons?type=4)**
+
 <br /><br />
 
 ## escape vs encodeURI(unicode vs utf-8)
