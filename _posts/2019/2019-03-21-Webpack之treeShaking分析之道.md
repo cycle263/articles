@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Webpack之treeShaking分析之道"
-subtitle:   "treeshaking"
+subtitle:   "webpack原理机制系列"
 date:       2019-03-21
 author:     "Cycle263"
 header-img: "img/article-bg.jpg"
